@@ -1,4 +1,5 @@
 set swapfile
+set t_Co=256
 set backupdir=~/.vim_bak//
 set directory=~/.vim_tmp//
 " let g:ctrlp_show_hidden=1

@@ -1,7 +1,5 @@
 export PATH="/usr/local/anaconda3/bin:$PATH"
-source /home/techknowfile/opt/antigen.zsh
 export EDITOR=vim
-export TERM="screen-256color"
 set encoding=utf-8
 DEFAULT_USER=techknowfile
 #
@@ -12,9 +10,9 @@ DEFAULT_USER=techknowfile
 #
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+# if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+#   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+# fi
 
 alias tmux='tmux -2'
 setopt shwordsplit
@@ -40,7 +38,8 @@ EOPLUGINS
 
     # completions
     zgen load zsh-users/zsh-syntax-highlighting
-    zgen oh-my-zsh custom/themes/powerlevel9k
+
+    zgen load bhilburn/powerlevel9k powerlevel9k
 
     # save all to init script
     zgen save

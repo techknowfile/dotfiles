@@ -10,12 +10,10 @@ source "/home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/git/git.p
 source "/home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/pip/pip.plugin.zsh"
 source "/home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/lein/lein.plugin.zsh"
 source "/home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/command-not-found/command-not-found.plugin.zsh"
-source "/home/techknowfile/.zgen/zsh-users/zsh-history-substring-search-master/zsh-history-substring-search.plugin.zsh"
-source "/home/techknowfile/.zgen/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.plugin.zsh"
-source "/home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/custom/themes/powerlevel9k.zsh-theme"
+source "/home/techknowfile/.zgen/bhilburn/powerlevel9k-master/powerlevel9k.zsh-theme"
 
 # ### Plugins & Completions
-fpath=(/home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/git /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/heroku /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/pip /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/lein /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/command-not-found /home/techknowfile/.zgen/zsh-users/zsh-history-substring-search-master /home/techknowfile/.zgen/zsh-users/zsh-syntax-highlighting-master /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/custom/themes ${fpath})
+fpath=(/home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/git /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/heroku /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/pip /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/lein /home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master/plugins/command-not-found /home/techknowfile/.zgen/zsh-users/zsh-history-substring-search-master /home/techknowfile/.zgen/zsh-users/zsh-syntax-highlighting-master /home/techknowfile/.zgen/bhilburn/powerlevel9k-master ${fpath})
 
 autoload -Uz compinit && \
    compinit -C 
