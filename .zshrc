@@ -19,27 +19,51 @@ fi
 alias tmux='tmux -2'
 setopt shwordsplit
 
-POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
 
+# ZGEN
+if ! zgen saved; then
+    echo "Creating a zgen save"
 
+    zgen oh-my-zsh
+    
+    # plugins
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/heroku
+    zgen oh-my-zsh plugins/pip
+    zgen oh-my-zsh plugins/lein
+    zgen oh-my-zsh plugins/command-not-found
+    
+    # bulk load
+    zgen loadall << EOPLUGINS 
+        zsh-users/zsh-history-substring-search
+EOPLUGINS
+
+    # completions
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen oh-my-zsh custom/themes/powerlevel9k
+
+    # save all to init script
+    zgen save
+fi
+DISABLE_AUTO_TITLE="true"
 # Load the oh-my-zsh's library
-antigen use oh-my-zsh
+# antigen use oh-my-zsh
 
- # Bundles from the default repo (robbyrussell's oh-my-zsh).
- antigen bundle git
- antigen bundle heroku
- antigen bundle pip
- antigen bundle lein
- antigen bundle command-not-found
+#  # Bundles from the default repo (robbyrussell's oh-my-zsh).
+#  antigen bundle git
+#  antigen bundle heroku
+#  antigen bundle pip
+#  antigen bundle lein
+#  antigen bundle command-not-found
 
- # Syntax highlighting bundle.
- antigen bundle zsh-users/zsh-syntax-highlighting
+#  # Syntax highlighting bundle.
+#  antigen bundle zsh-users/zsh-syntax-highlighting
 
- # Load the theme.
- antigen theme bhilburn/powerlevel9k powerlevel9k
+#  # Load the theme.
+#  antigen theme bhilburn/powerlevel9k powerlevel9k
 
- # Tell Antigen that you're done.
- antigen apply
+#  # Tell Antigen that you're done.
+#  antigen apply
 
 export levels="ssh 01aabaed9@129.219.253.30 -p 1337"
 # eval `dircolors '/home/techknowfile/.dir_colors/dircolors'`

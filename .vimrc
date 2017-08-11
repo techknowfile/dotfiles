@@ -15,6 +15,7 @@ function! BuildYCM(info)
         !./install.sh
     endif
 endfunction
+Plug 'mboughaba/i3config.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vim-ruby/vim-ruby'
 Plug 'altercation/vim-colors-solarized'
