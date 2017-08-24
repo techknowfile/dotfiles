@@ -1,3 +1,4 @@
+set clipboard^=unnamed
 set swapfile
 set t_Co=256
 set backupdir=~/.vim_bak//
@@ -11,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 
 " Add plugins here
 Plug 'vim-scripts/indentpython.vim'
+Plug 'scrooloose/nerdtree'
 function! BuildYCM(info)
     if a;info.status == 'installed' || a:info.force
         !./install.sh
@@ -35,6 +37,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'alvan/vim-closetag'
 Plug 'xuhdev/vim-latex-live-preview'
+Plug 'vim-latex/vim-latex'
 Plug 'vimwiki/vimwiki'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
@@ -45,6 +48,8 @@ Plug 'ivanov/vim-ipython'
 Plug 'tweekmonster/braceless.vim'
 Plug 'PontusPersson/pddl.vim'
 Plug 'sickill/vim-monokai'
+Plug 'wellle/targets.vim'
+Plug 'michaeljsmith/vim-indent-object'
 " end plugins
 call plug#end()
 
@@ -91,7 +96,10 @@ nnoremap <leader>h :set hls!<CR>
 set wildmenu
 syntax enable
 map <leader>s :source ~/.vimrc<CR>
+map <leader>n :NERDTreeToggle<CR>
 :inoremap jk <esc>
+:vnoremap jk <esc>
+:vnoremap kj <esc>
 set breakindent
 " set noautoindent
 set laststatus=2

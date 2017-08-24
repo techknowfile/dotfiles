@@ -164,3 +164,5 @@ autoload -U colors
 colors
 export MALMO_XSD_PATH=/usr/local/malmo/Schemas
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias minecraft='/usr/local/malmo/Minecraft/launchClient.sh'
+alias missions='cd ~/projects/malmo/missions'
