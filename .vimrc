@@ -18,12 +18,14 @@ function! BuildYCM(info)
         !./install.sh
     endif
 endfunction
+" Plug 'vim-scriptsnilatex.vim'
 Plug 'mboughaba/i3config.vim'
+Plug 'easymotion/vim-easymotion'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vim-ruby/vim-ruby'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-scripts/ReplaceWithRegister'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -172,3 +174,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki', 'template_path': '~/vimwiki/template
           \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
           \ 'path_html': '~/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
           \ 'template_ext': '.tpl'}]
+
+let g:AutoPairsMapCR = 0
+let g:AutoPairsShortcutJump = "<C-n>"
+let g:AutoPairsNormalJump = 0

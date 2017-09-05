@@ -1,5 +1,6 @@
 #exec_always --no-startup-id compton -b 
 exec_always --no-startup-id ~/.fehbg
+exec_always --no-startup-id sudo ~/.screenlayout/default.sh
 
 set $browser google-chrome
 set $term gnome-terminal
@@ -64,7 +65,8 @@ bindsym $mod+n exec $term -x vim --servername VIM
 bindsym $mod+Shift+n exec $term -x vim -c VimwikiMakeDiaryNote
 
 # start dmenu (a program launcher)
-bindsym $mod+r exec kupfer
+bindsym $mod+r exec --no-startup-id i3-dmenu-desktop
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -104,8 +106,8 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+Shift+s layout tabbed
+# bindsym $mod+s layout stacking
+# bindsym $mod+Shift+s layout tabbed
 bindsym $mod+e layout toggle split
 
 
@@ -130,7 +132,8 @@ set $ws6 "6: vi"
 set $ws7 "7: vii"
 set $ws8 "8: viii"
 set $ws9 "9: ix"
-set $ws10 "10: x"
+set $ws10 "Secondary"
+
 # switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2 
@@ -142,6 +145,17 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
+
+workspace $ws10 output DVI-0
+workspace $ws1 output DisplayPort-0
+workspace $ws2 output DisplayPort-0
+workspace $ws3 output DisplayPort-0
+workspace $ws4 output DisplayPort-0
+workspace $ws5 output DisplayPort-0
+workspace $ws6 output DisplayPort-0
+workspace $ws7 output DisplayPort-0
+workspace $ws8 output DisplayPort-0
+workspace $ws9 output DisplayPort-0
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -237,8 +251,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 20"
 # Touchpad controls
 # bindsym XF86TouchpadToggle exec "/some/path/oggletouchpad.sh" # toggle touchpad
 
-bindsym mod4+Shift+s move scratchpad
-bindsym mod4+s scratchpad show
+bindsym $mod+Shift+s move scratchpad
+bindsym $mod+s scratchpad show
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
@@ -266,5 +280,5 @@ for_window [title="Google Hangouts"] move workspace $ws3
 for_window [class="California"] floating enable
 # for_window [class="Minecraft 1.11.2"] floating enable
 for_window [class="rangerterminaltitleclass"] floating enable
-for_window [class="Mendeley Desktop"] move workspace $ws5
+# for_window [class="Mendeley Desktop"] move workspace $ws5
 for_window [title="Kupfer"] border none
