@@ -1,6 +1,6 @@
 #exec_always --no-startup-id compton -b 
+exec_always --no-startup-id ~/.screenlayout/default.sh
 exec_always --no-startup-id ~/.fehbg
-exec_always --no-startup-id sudo ~/.screenlayout/default.sh
 
 set $browser google-chrome
 set $term gnome-terminal
@@ -264,9 +264,6 @@ bindsym $mod+w exec $browser
 bindsym $mod+c exec california
 bindsym $mod+p exec --no-startup-id xterm -bg \#002b36 -e 'export TERM=xterm-256color && vis'
 bindsym $mod+d exec $term --title=rangerterminaltitleclass -x ranger
-# Startup applications
-exec --no-startup-id i3-msg 'workspace $ws3; exec slack'
-exec --no-startup-id i3-msg 'exec mendeleydesktop'
 
 gaps inner 10
 gaps outer 5 
@@ -276,9 +273,17 @@ for_window [class="^.*"] border pixel 3
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 
-for_window [title="Google Hangouts"] move workspace $ws3
+for_window [title="Google Hangouts"] move $ws3
+for_window [class="Slack"] move $ws3
+for_window [instance="mendeleydesktop"] move to workspace $ws5
 for_window [class="California"] floating enable
 # for_window [class="Minecraft 1.11.2"] floating enable
 for_window [class="rangerterminaltitleclass"] floating enable
 # for_window [class="Mendeley Desktop"] move workspace $ws5
 for_window [title="Kupfer"] border none
+for_window [class="Trello"] move to workspace $ws10; resize grow height 10px; resize grow height 20px
+
+# Startup applications
+exec --no-startup-id i3-msg 'exec mendeleydesktop'
+exec_always i3-msg 'exec $browser; workspace $ws10'
+exec_always --no-startup-id 'trello'
