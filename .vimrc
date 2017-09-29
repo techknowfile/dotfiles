@@ -120,6 +120,18 @@ au BufNewFile,BufRead *.tex
     \ filetype plugin on |
     \ let g:tex_flavor="latex" 
 
+
+function SetXeTex()
+    let g:Tex_CompileRule_pdf = 'xelatex -aux-directory=F:/Vim/my_latex_doc/temp --synctex=-1 -src-specials -interaction=nonstopmode $*'
+endfunction
+map <Leader>lx :<C-U>call SetXeTex()<CR>
+let g:Tex_IgnoredWarnings = 
+    \"Font shape"."\n".
+    \"LaTeX Font Warning"."\n".
+    \"Underfull"."\n".
+    \"Size substitutions"."\n"
+let g:Tex_IgnoreLevel = 4
+
 " augroup filetypedetect
 
 "     au BufNewFile,BufRead *.world

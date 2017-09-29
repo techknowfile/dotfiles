@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="./style.css">
+<script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="./js/MathJax/MathJax.js"></script>
+
+<title>Malmo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=%encoding%">
+</head>
+<body class="markdown-body">
+<h1>
+<a id="malmo" class="anchor" href="#malmo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Malmo</h1>
+
+<p>Malmo serves as an API to communicate between python (or other languages) and Minecraft.</p>
+
+<h2>
+<a id="planning" class="anchor" href="#planning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Planning</h2>
+
+<p>Initial goal is to develop a mission for Malmo that allows us to show its viability in explicability experiments. We already have previous domains, such as <em>Robot Delivery</em>, <em>Blocks World</em>, and <em>Roaver</em> to consider for simulation. However, it is necessary to re-imagine the domains, or create a new one, which is applicable to the Minecraft world. </p>
+
+<ul>
+<li><p>Robot Delivery is a nice and relatively simple domain. Some actions in the domain are not viable for the Minecraft world, such as the concept of carrying stacked items on a tray. The Minecraft agent, while he only has one arm to wield items, has a large inventory that the items he is carrying are placed in.</p></li>
+<li><p>The explicability experiment with the rover, which has a hidden goal of acting optimally with regards to its battery life, could also be simulated with Malmo. The Minecraft agent has a food bar that indicates the hunger of the agent. Should the agent's food bar drop too low, he will begin to lose health. If the agent is sprinting (only viable in continuous action mode if it's even supported in Malmo), the food bar depletes quickly. One idea would be to use this bar in a way similar to the battery of the roaver; however, an important aspect of the roaver experiment is that the human either didn't know the battery life of the roaver, or wasn't aware that the battery level could affect the cost of its actions.</p></li>
+</ul>
+
+<ul>
+<li>Obviously blocks world can be done, but where's the fun in that?</li>
+</ul>
+
+<h3>
+<a id="domain-ideas" class="anchor" href="#domain-ideas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Domain ideas</h3>
+
+<ol>
+<li>
+<p><strong>Optimal pickaxe domain</strong></p>
+
+<p><strong>Background</strong></p>
+
+<ul>
+<li>There are multiple types of pickaxes in the game (wood, gold, iron, diamond, etc). The better the type pickaxe, the faster it can break through certain blocks. Materials can be mined when their respective blocks are broken. For instance, in order to mine diamonds, the agent must use an iron or diamond pickaxe to break a diamond ore block.</li>
+<li>Each type of pickaxe has a durability rating. When an agent breaks a block, it costs 1 durability. Blocks that break instantly cost 0 durability. Once the durability of a pickaxe has depleted, it breaks and disappears from the agent's inventory.</li>
+</ul>
+
+<p><strong>Idea</strong></p>
+
+<ul>
+<li>Design levels in which the agent is trying to reach diamonds visible in the adjacent room. There is a block preventing the agent from entering the room directly. He has access to a diamond pickaxe, but has a hidden goal of preserving the durability of the pickaxe (so that he can mine diamonds with it later). Alternatively, the agent can take a longer, indirect route to the diamonds which will not require him to damage the pickaxe and is still faster than trying to break the block with his fists. This path is optimal for the agent's model, but the human's model (unaware of the cost of breaking the block or the remaining durability of the pickaxe) would prefer the agent take the more direct route to reach the diamonds faster.
+<img src="images/mission_0_map.png" alt="mission 0 map">
+
+<ul>
+<li>This idea can be extended to the agent executing a plan that is closest to the human's desired plan while still not being entirely explicable. For instance, if the human's model requires the agent to break more blocks than the durability remaining on his pickaxe will allow, he could learn to take a third path that is more direct than the unobstructed path and has few enough blocks to be a feasible plan.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+</body>
+<style type="text/css">
+        .highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+      </style>
+</html>

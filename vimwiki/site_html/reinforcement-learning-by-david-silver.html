@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="./style.css">
+<script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="./js/MathJax/MathJax.js"></script>
+
+<title>Reinforcement learning by david silver</title>
+<meta http-equiv="Content-Type" content="text/html; charset=%encoding%">
+</head>
+<body class="markdown-body">
+<h1>
+<a id="model-free-prediction-lecture-4" class="anchor" href="#model-free-prediction-lecture-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model-free Prediction (Lecture 4)</h1>
+
+<p>Monte-carlo for blackjack. Using policy evaluation, we take a policy (state -&gt; action) and learn the value function for that policy by running over a series of episodes using that policy. As $N -&gt; INF, V(s) -&gt; v_\pi(s)$.</p>
+
+<p>The value function does depend on every aspect of the environment. How many 10's are there? How does the dealer act? How were the cards shuffled (randomness)? But we don't need to tell the agent any of this. By simply sampling returns, we can go straight to the value function, which will lead us to optimal behavior.</p>
+
+<p>Negative: Forward-looking. Have to wait until the end of the episode.</p>
+
+<h2>
+<a id="incremental-monte-carlo-updates" class="anchor" href="#incremental-monte-carlo-updates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Incremental Monte-Carlo Updates</h2>
+
+<p>$ N(S_t) \leftarrow N(S_t) + 1 $</p>
+
+<p>$V(S_t) \leftarrow V(S_t) + 1/N(S_t)(G_t-V(S_t))$</p>
+
+<p>Note that $1/N(S_t)$ is a step size. We move incrementally closer to the true average by taking a small step in the direction of the error.</p>
+
+<p>In dynamic environments, it can be useful to forget old episodes.
+Apply a constant step-size (alpha). Non-stationary estimators of the mean end up being useful with policy improvement, because the thing that we're evaluating is getting better and better.
+$V(S_t) \leftarrow V(S_t) + alpha(G_t-V(S_t))$</p>
+
+<h2>
+<a id="temporal-difference-learning" class="anchor" href="#temporal-difference-learning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Temporal-Difference Learning</h2>
+
+<pre><code>* Similar to MC, it learns directly from episodes of experience. Model-free. No knowledge of MDP transitions / rewards.
+* Bootstraps - Learns from incomplete episodes
+* Update our guess of our value function using another guess.
+</code></pre>
+
+<h3>
+<a id="td0" class="anchor" href="#td0" aria-hidden="true"><span class="octicon octicon-link"></span></a>TD(0)</h3>
+
+<ul>
+<li>Unlike MC, instead of using the return (G_t) to update our value function, use the reward we receive on the next step plus the current <strong>estimated</strong> value of that next state. R_{t+1} + \gamma *V(S_{t+1})</li>
+</ul>
+
+<h3>
+<a id="monte-carlo-vs-td0" class="anchor" href="#monte-carlo-vs-td0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Monte-Carlo vs TD(0)</h3>
+
+<ul>
+<li>Notice that TD(0) reduces down to the transition probabilities to the possible next states, taking advantage of the markov property and implicitly building the underlying MDP.</li>
+</ul>
+
+<h3>
+<a id="tdlambda" class="anchor" href="#tdlambda" aria-hidden="true"><span class="octicon octicon-link"></span></a>TD($\lambda$)</h3>
+
+<ul>
+<li>Take an average over the return of estimates at different depths, weighted by $\lambda$.</li>
+<li>The $\lambda$-return $(G_t)^\lambda$ combines all n-step returns $(G_t)^n$</li>
+<li>= (1-λ)∑(n=1-&gt;∞)(λ^{n-1}G_t^n)</li>
+<li>Forward-view TD(λ)
+
+<ul>
+<li>V(S_t) \leftarrow V(S_t) + α((G_t)^λ - V(S_t))</li>
+</ul>
+</li>
+<li>Note: To do this, we again have to wait until the end of the episode before we can update our values.</li>
+</ul>
+
+<h4>
+<a id="backward-view-tdλ" class="anchor" href="#backward-view-td%CE%BB" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backward-view TD(λ)</h4>
+
+<ul>
+<li>Forward view provided us with theory.</li>
+<li>Backward view provides mechanism</li>
+<li>Updates online, every step, with incomplete sequences.</li>
+</ul>
+
+<p><strong>Enter ELIGIBILTY TRACES</strong></p>
+
+<ul>
+<li>Bell, Bell, Bell, Light, SHOCK</li>
+<li>What caused the shock? The bell or the light? Frequency or Recency? Eligibility traces combine these heuristics</li>
+<li>Keep an eligibility trace for every state s</li>
+<li>Update value V(s) for every state s</li>
+<li><p>In proportion to TD-error \delta_t and eligibility trace E_t(s)</p></li>
+<li><p>This is the credit assingment problem.</p></li>
+<li>E_0(s) = 0</li>
+<li>E_t(s) = γλE_{t-1}(s)+1(S_t = s) </li>
+</ul>
+
+<ul>
+<li>Offline, TD(λ) forward and backward view algorithms are identically equivalent</li>
+</ul>
+
+<h1>
+<a id="model-free-control-lecture-5" class="anchor" href="#model-free-control-lecture-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model-free Control (Lecture 5)</h1>
+
+<pre><code>* In order to do greedy policy improvement over V(s), we need a model of the MDP (argmax(a) ..., testing the dynamics and picking each action). We don't want to learn the dynamics, we're trying to be model free.
+* We can do greedy policy improvement over Q(s,a), which is model free.
+    * \pi'(s)  = argmax_{a\in A}Q(s,a)
+    * By caching the values of our actions, we remove the burden of needing to learn/save the transition model
+* If we don't see certain states/actions, then we won't evaluate them properly and we'll never select them. Need to make sure we see everything.
+</code></pre>
+
+<h2>
+<a id="epsilon-greedy-epsilon-greedy-exploration" class="anchor" href="#epsilon-greedy-epsilon-greedy-exploration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Epsilon-greedy (\epsilon-Greedy) exploration</h2>
+
+<h2>
+<a id="greedy-in-the-limit-with-infinite-exploration" class="anchor" href="#greedy-in-the-limit-with-infinite-exploration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Greedy in the Limit with Infinite Exploration</h2>
+
+<ul>
+<li>All state-action pairs are explored infinitely many times lim_{k-&gt;\inf}(N_k(s,a) = ∞)</li>
+</ul>
+
+<h2>
+<a id="sarsa" class="anchor" href="#sarsa" aria-hidden="true"><span class="octicon octicon-link"></span></a>SARSA</h2>
+
+<ul>
+<li>Q(S,A) \leftarrow Q(S,A) + \alpha*(R+\gammaQ(S',A') - Q(S,A))</li>
+<li>n-step Q-return,  replace R+\gammaQ(S',A') with (q_t)^n</li>
+<li>$SARSA(\lambda)$, plug in $(q_t)^\lambda = (1-\lambda)\sigma(n \leftarrow 1 to \inf) \lambda^{n-1}q_t^n$</li>
+<li><p>Again, we're looking forward in time. Not online. Needs oracle or has to wait until end of episode</p></li>
+<li><p>In Sarsa(\lambda), \lambda tells you how far the information should propagate back through the trajectory. SARSA(0) only updates one step. SARSA(\lambda) for \lambda = (0, 1], once we reach a Q(S,A) with high value, how far back along the trajectory we should look (all values updated based on their eligibility)</p></li>
+</ul>
+
+<h2>
+<a id="importance-sampling" class="anchor" href="#importance-sampling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Importance Sampling</h2>
+
+<ul>
+<li>Monte-Carlo learning is a terrible idea off-policy</li>
+</ul>
+
+<p>-- NOTES</p>
+
+<ul>
+<li>Cool trend for handling variance and exploration.
+
+<ul>
+<li>Reduce the weight of reward values that have higher variance</li>
+<li>1/k exploration. Coin with changing probability, don't need to explicitly keep track of pi. Just need q and 1/k</li>
+<li>
+</ul>
+</li>
+</ul>
+
+<h1>
+<a id="value-function-approximation" class="anchor" href="#value-function-approximation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Value Function Approximation</h1>
+
+<h2>
+<a id="gradient-descent" class="anchor" href="#gradient-descent" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient Descent</h2>
+
+<h1>
+<a id="integrating-learning-and-planning-lecture-8" class="anchor" href="#integrating-learning-and-planning-lecture-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Integrating Learning and Planning (Lecture 8)</h1>
+
+<h2>
+<a id="advantages-of-model-based" class="anchor" href="#advantages-of-model-based" aria-hidden="true"><span class="octicon octicon-link"></span></a>Advantages of Model-based</h2>
+
+<ul>
+<li>It can be hard to learn the value of a specific state when slight changes to that state result in drastically different returns. Like in chess, if a piece is one square off, it could be the difference between a win and a loss. This makes it extremely difficult to learn directly from experience. However, the model for the game is quite simple, it's simply the rules of the game. "If I move the pawn forward 2 steps, then I'll be in a new state where the pawn is to squares forward".</li>
+<li>If you can use that model to look ahead, I can estimate the value function by planning (tree search for chess)</li>
+<li>Model can be a more compact/useful representation than a value function or a policy.</li>
+<li>Can be efficiently learned by supervised learning methods.</li>
+<li>"Can reason about model uncertainty"
+## Disadvantages of Model-based</li>
+<li>First learn a model, then construct a value function =&gt; Two sources of approximation error.
+# Model Learning</li>
+<li>Interesting: When doing sample-based learning, say for a robot, you can use all the real experience you receive to build a better and better model, and then you can continuously take samples from the model to learn the optimal policy based on your current model, which the robot can pull from anytime it needs to determine the best action</li>
+<li>Having a model allows us to use value iteration, policy iteration, tree search, ... all the things that we couldn't use on model-free for control now become available tools</li>
+<li>Maximum-likelihood model is naive, and we can use Bayesian MDP models to include uncertainty. </li>
+</ul>
+
+<h1>
+<a id="classic-games" class="anchor" href="#classic-games" aria-hidden="true"><span class="octicon octicon-link"></span></a>Classic Games</h1>
+
+<ul>
+<li> If we’re learning the dealer’s policy and adapting to how he is playing, and he’s adapting to how we’re playing, then we’d learn the best joint policy, which could tell us how to play not just against that dealer, but potentially against any dealer, because we’ve learned a much more powerful solution concept that tells us about plays in general about the game.</li>
+</ul>
+
+</body>
+<style type="text/css">
+        .highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+      </style>
+</html>
