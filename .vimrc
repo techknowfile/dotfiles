@@ -1,6 +1,3 @@
-set clipboard^=unnamed
-set swapfile
-set t_Co=256
 set backupdir=~/.vim_bak//
 set directory=~/.vim_tmp//
 " let g:ctrlp_show_hidden=1
@@ -11,7 +8,7 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " Add plugins here
-Plug 'vim-scripts/indentpython.vim'
+" Plug 'vim-scripts/indentpython.vim'
 Plug 'scrooloose/nerdtree'
 function! BuildYCM(info)
     if a;info.status == 'installed' || a:info.force
@@ -19,6 +16,10 @@ function! BuildYCM(info)
     endif
 endfunction
 " Plug 'vim-scriptsnilatex.vim'
+Plug 'Reewr/vim-monokai-phoenix'
+Plug 'sickill/vim-monokai'
+Plug 'hdima/python-syntax'
+Plug 'tomasr/molokai'
 Plug 'mboughaba/i3config.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'Valloric/YouCompleteMe'
@@ -49,7 +50,6 @@ Plug 'morhetz/gruvbox'
 Plug 'ivanov/vim-ipython'
 Plug 'tweekmonster/braceless.vim'
 Plug 'PontusPersson/pddl.vim'
-Plug 'sickill/vim-monokai'
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 " end plugins
@@ -63,7 +63,9 @@ let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
-
+"Italics
+set t_ZH=[3m
+set t_ZR=[23m
 "Vim-airline
 let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled=1
@@ -81,8 +83,11 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 "set layout
-set background=dark
+set t_8f=[38;2;%lu;%lu;%lum
+set t_8b=[48;2;%lu;%lu;%lum
 let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_italic = 1
+set background=dark
 colorscheme gruvbox
 
 set incsearch
@@ -189,4 +194,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki', 'template_path': '~/vimwiki/template
 
 let g:AutoPairsMapCR = 0
 let g:AutoPairsShortcutJump = "<C-n>"
+let g:monokai_term_italic = 1
+let g:monokai_gui_italic = 1
 let g:AutoPairsNormalJump = 0
