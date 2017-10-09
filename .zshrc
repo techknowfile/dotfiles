@@ -1,8 +1,19 @@
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+alias ls="ls --color=auto -F"
 export PATH="/usr/local/anaconda3/bin:$PATH"
+export TERMCMD="x-terminal-emulator"
 export EDITOR=vim
 set encoding=utf-8
 DEFAULT_USER=techknowfile
-#
+##############################################################################
+# History Configuration
+##############################################################################
+HISTSIZE=5000               #How many lines of history to keep in memory
+HISTFILE=~/.zsh_history     #Where to save history to disk
+SAVEHIST=5000               #Number of history entries to save to disk
+#HISTDUP=erase               #Erase duplicates in the history file
+setopt    appendhistory     #Append history to the history file (no overwriting)
+setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed#
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -38,7 +49,6 @@ EOPLUGINS
 
     # completions
     zgen load zsh-users/zsh-syntax-highlighting
-
     zgen load bhilburn/powerlevel9k powerlevel9k
 
     # save all to init script
@@ -65,7 +75,7 @@ DISABLE_AUTO_TITLE="true"
 #  antigen apply
 
 export levels="ssh 01aabaed9@129.219.253.30 -p 1337"
-# eval `dircolors '/home/techknowfile/.dir_colors/dircolors'`
+eval `dircolors '/home/techknowfile/.dir_colors/dircolors'`
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 autoload -Uz compinit
 compinit
@@ -82,7 +92,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_ANACONDA_FOREGROUND='016'
 POWERLEVEL9K_ANACONDA_LEFT_DELIMITER=''
 POWERLEVEL9K_ANACONDA_RIGHT_DELIMITER=''
-# source ~/.shortcutsrc
+source ~/.shortcutsrc
 
 # ROS/Gazebo
 # source /opt/ros/indigo/setup.zsh
@@ -175,3 +185,4 @@ bindkey '\e[3~'   delete-char        # Linux console, xterm, gnome-terminal
 bindkey '\e[4~'   end-of-line        # Linux console
 bindkey '\e[F'    end-of-line        # xterm
 bindkey '\eOF'    end-of-line        # gnome-terminal]]]]]]'
+export LD_LIBRARY_PATH=/usr/local/lib

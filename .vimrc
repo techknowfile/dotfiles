@@ -1,3 +1,5 @@
+let g:tex_flavor="latex"
+nnoremap <silent> <C-l> :nohl<CR><C-l>
 set backupdir=~/.vim_bak//
 set directory=~/.vim_tmp//
 " let g:ctrlp_show_hidden=1
@@ -18,7 +20,7 @@ endfunction
 " Plug 'vim-scriptsnilatex.vim'
 Plug 'Reewr/vim-monokai-phoenix'
 Plug 'sickill/vim-monokai'
-Plug 'hdima/python-syntax'
+Plug 'scrooloose/syntastic'
 Plug 'tomasr/molokai'
 Plug 'mboughaba/i3config.vim'
 Plug 'easymotion/vim-easymotion'
@@ -30,11 +32,13 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'hdima/python-syntax'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 Plug 'mileszs/ack.vim'
 Plug 'kien/ctrlp.vim'
+Plug 'voronianski/oceanic-next-color-scheme'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -44,10 +48,10 @@ Plug 'vim-latex/vim-latex'
 Plug 'vimwiki/vimwiki'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/LustyJuggler'
 Plug 'morhetz/gruvbox'
-Plug 'ivanov/vim-ipython'
+" Plug 'ivanov/vim-ipython'
 Plug 'tweekmonster/braceless.vim'
 Plug 'PontusPersson/pddl.vim'
 Plug 'wellle/targets.vim'
@@ -66,6 +70,8 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 "Italics
 set t_ZH=[3m
 set t_ZR=[23m
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
 "Vim-airline
 let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled=1
@@ -87,9 +93,11 @@ set t_8f=[38;2;%lu;%lu;%lum
 set t_8b=[48;2;%lu;%lu;%lum
 let g:gruvbox_contrast_dark = "hard"
 let g:gruvbox_italic = 1
+let g:monokai_term_italic = 1
+let g:monokai_term_bold = 1
+let g:solarized_termcolors = 256
 set background=dark
-colorscheme gruvbox
-
+colorscheme monokai
 set incsearch
 set path+=**
 set tabstop=4
@@ -118,15 +126,15 @@ autocmd FileType python BracelessEnable +indent
 " this turns off physical line wrapping (ie: automatic insertion of newlines)
 set textwidth=0 wrapmargin=0
 let g:Tex_DefaultTargetFormat='pdf'
-au BufWritePost *.tex silent call Tex_RunLaTeX()
-au BufWritePost *.tex silent !pkill -USR1 xdvi.bin
 au BufNewFile,BufRead *.tex
     \ filetype indent on |
     \ filetype plugin on |
     \ let g:tex_flavor="latex" 
+au BufWritePost *.tex silent call Tex_RunLaTeX()
+au BufWritePost *.tex silent !pkill -USR1 xdvi.bin
 
 
-function SetXeTex()
+function! SetXeTex()
     let g:Tex_CompileRule_pdf = 'xelatex -aux-directory=F:/Vim/my_latex_doc/temp --synctex=-1 -src-specials -interaction=nonstopmode $*'
 endfunction
 map <Leader>lx :<C-U>call SetXeTex()<CR>
@@ -197,3 +205,4 @@ let g:AutoPairsShortcutJump = "<C-n>"
 let g:monokai_term_italic = 1
 let g:monokai_gui_italic = 1
 let g:AutoPairsNormalJump = 0
+

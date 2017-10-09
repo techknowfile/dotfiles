@@ -184,10 +184,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -262,7 +262,8 @@ bindsym XF86AudioPrev exec "playerctl previous"
 bindsym $mod+Shift+x exec ~/scripts/lock
 bindsym $mod+w exec $browser
 bindsym $mod+c exec california
-bindsym $mod+p exec --no-startup-id xterm -bg \#002b36 -e 'export TERM=xterm-256color && vis'
+bindsym $mod+p exec google-chrome --app=http://68.99.84.118:32400/web/
+# bindsym $mod+p exec --no-startup-id xterm -bg \#002b36 -e 'export TERM=xterm-256color && vis'
 bindsym $mod+d exec $term --title=rangerterminaltitleclass -x ranger
 
 gaps inner 10
@@ -281,7 +282,10 @@ for_window [class="California"] floating enable
 for_window [class="rangerterminaltitleclass"] floating enable
 # for_window [class="Mendeley Desktop"] move workspace $ws5
 for_window [title="Kupfer"] border none
+# for_window [class="BuiciClock"] border none
 for_window [class="Trello"] move to workspace $ws10; resize grow height 10px; resize grow height 20px
+for_window [title="Computers & Contacts"] floating enable 
+
 
 # Startup applications
 exec --no-startup-id i3-msg 'exec mendeleydesktop'
