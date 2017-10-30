@@ -17,10 +17,10 @@ function! BuildYCM(info)
         !./install.sh
     endif
 endfunction
-" Plug 'vim-scriptsnilatex.vim'
 Plug 'Reewr/vim-monokai-phoenix'
 Plug 'sickill/vim-monokai'
-Plug 'scrooloose/syntastic'
+Plug 'bfredl/nvim-ipy'
+Plug 'ivanov/vim-ipython'
 Plug 'tomasr/molokai'
 Plug 'mboughaba/i3config.vim'
 Plug 'easymotion/vim-easymotion'
@@ -42,16 +42,13 @@ Plug 'voronianski/oceanic-next-color-scheme'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'alvan/vim-closetag'
 Plug 'xuhdev/vim-latex-live-preview'
 Plug 'vim-latex/vim-latex'
 Plug 'vimwiki/vimwiki'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
-" Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/LustyJuggler'
 Plug 'morhetz/gruvbox'
-" Plug 'ivanov/vim-ipython'
 Plug 'tweekmonster/braceless.vim'
 Plug 'PontusPersson/pddl.vim'
 Plug 'wellle/targets.vim'
@@ -97,7 +94,7 @@ let g:monokai_term_italic = 1
 let g:monokai_term_bold = 1
 let g:solarized_termcolors = 256
 set background=dark
-colorscheme monokai
+colorscheme gruvbox
 set incsearch
 set path+=**
 set tabstop=4

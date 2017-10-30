@@ -186,3 +186,4 @@ bindkey '\e[4~'   end-of-line        # Linux console
 bindkey '\e[F'    end-of-line        # xterm
 bindkey '\eOF'    end-of-line        # gnome-terminal]]]]]]'
 export LD_LIBRARY_PATH=/usr/local/lib
+export XDG_CURRENT_DESKTOP=GNOME
