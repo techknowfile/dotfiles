@@ -18,6 +18,10 @@ function! BuildYCM(info)
     endif
 endfunction
 Plug 'Reewr/vim-monokai-phoenix'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'sjbach/lusty'
 Plug 'sickill/vim-monokai'
 Plug 'bfredl/nvim-ipy'
 Plug 'ivanov/vim-ipython'

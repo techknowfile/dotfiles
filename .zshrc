@@ -98,7 +98,6 @@ source ~/.shortcutsrc
 # source /opt/ros/indigo/setup.zsh
 # source /opt/ros/indigo/setup.zsh
 # source ~/catkin_ws/devel/setup.zsh
-export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.7/dist-packages"
 
 if [ -n "$CONDA_DEFAULT_ENV" ]; then
     echo "source activate $CONDA_DEFAULT_ENV"
@@ -187,3 +186,6 @@ bindkey '\e[F'    end-of-line        # xterm
 bindkey '\eOF'    end-of-line        # gnome-terminal]]]]]]'
 export LD_LIBRARY_PATH=/usr/local/lib
 export XDG_CURRENT_DESKTOP=GNOME
+
+unset PYTHONPATH
+export LD_LIBRARY_PATH=/opt/OpenBLAS/lib:/usr/local/lib

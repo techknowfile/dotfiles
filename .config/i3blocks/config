@@ -52,7 +52,7 @@ border=#98971a
 
 [time]
 label=    
-command=echo "`date +'%a %d %b'` <b>`date +'%T'`</b> ";if [ -z $BLOCK_BUTTON ]; then :; else exec gsimplecal; fi 
+command=echo "`date +'%a %d %b'` <b>`date +'%r'`</b> ";if [ -z $BLOCK_BUTTON ]; then :; else exec gsimplecal; fi 
 interval=1
 markup=pango
 border=#928374

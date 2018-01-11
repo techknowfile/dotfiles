@@ -261,10 +261,14 @@ bindsym XF86AudioPrev exec "playerctl previous"
 
 bindsym $mod+Shift+x exec ~/scripts/lock
 bindsym $mod+w exec $browser
-bindsym $mod+c exec california
+# bindsym $mod+c exec california
 bindsym $mod+p exec google-chrome --app=http://68.99.84.118:32400/web/
+bindsym $mod+c exec google-chrome --class=i3calendar --app=http://google.com/calendar 
+bindsym $mod+m exec google-chrome --class=i3mail --app=http://inbox.google.com
 # bindsym $mod+p exec --no-startup-id xterm -bg \#002b36 -e 'export TERM=xterm-256color && vis'
 bindsym $mod+d exec $term --title=rangerterminaltitleclass -x ranger
+
+bindsym $mod+button9 exec google-chrome
 
 gaps inner 10
 gaps outer 5 
@@ -284,10 +288,10 @@ for_window [class="rangerterminaltitleclass"] floating enable
 for_window [title="Kupfer"] border none
 # for_window [class="BuiciClock"] border none
 for_window [class="Trello"] move to workspace $ws10; resize grow height 10px; resize grow height 20px
-for_window [title="Computers & Contacts"] floating enable 
-
+for_window [title="Arizona State University -* Calendar *"] floating enable 
+for_window [class="i3mail"] floating enable 
 
 # Startup applications
 exec --no-startup-id i3-msg 'exec mendeleydesktop'
-exec_always i3-msg 'exec $browser; workspace $ws10'
-exec_always --no-startup-id 'trello'
+exec i3-msg 'exec $browser; workspace $ws10'
+exec --no-startup-id 'trello'
