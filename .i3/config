@@ -268,7 +268,8 @@ bindsym $mod+m exec google-chrome --class=i3mail --app=http://inbox.google.com
 # bindsym $mod+p exec --no-startup-id xterm -bg \#002b36 -e 'export TERM=xterm-256color && vis'
 bindsym $mod+d exec $term --title=rangerterminaltitleclass -x ranger
 
-bindsym $mod+button9 exec google-chrome
+bindsym $mod+ctrl+1 exec google-chrome http://www.yancomm.net/teaching/binary_analysis.html
+bindsym $mod+ctrl+2 exec google-chrome 'https://myasucourses.asu.edu/webapps/blackboard/execute/launcher?type=Course&id=_373624_1'
 
 gaps inner 10
 gaps outer 5 
