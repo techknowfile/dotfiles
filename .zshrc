@@ -1,6 +1,6 @@
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 alias ls="ls --color=auto -F"
-export PATH="/usr/local/anaconda3/bin:$PATH"
+export PATH="/usr/local/anaconda3/bin:/home/techknowfile/.vim/plugged/vim-live-latex-preview/bin:$PATH"
 export TERMCMD="x-terminal-emulator"
 export EDITOR=vim
 set encoding=utf-8
@@ -25,7 +25,7 @@ setopt    incappendhistory  #Immediately append to the history file, not just wh
 #   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 # fi
 
-alias tmux='tmux -2'
+alias tmux='tmux' 
 setopt shwordsplit
 
 
@@ -74,6 +74,7 @@ DISABLE_AUTO_TITLE="true"
 #  # Tell Antigen that you're done.
 #  antigen apply
 
+source ~/opt/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 export levels="ssh 01aabaed9@129.219.253.30 -p 1337"
 eval `dircolors '/home/techknowfile/.dir_colors/dircolors'`
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
@@ -189,3 +190,14 @@ export XDG_CURRENT_DESKTOP=GNOME
 
 unset PYTHONPATH
 export LD_LIBRARY_PATH=/opt/OpenBLAS/lib:/usr/local/lib
+stty -ixon
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+function fzf-cd {
+	cd $(dirname $(fzf))
+	zle reset-prompt
+	zle -R
+}
+zle -N fzf-cd
+bindkey ^f fzf-cd

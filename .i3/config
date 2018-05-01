@@ -65,7 +65,7 @@ bindsym $mod+n exec $term -x vim
 bindsym $mod+Shift+n exec $term -x vim -c VimwikiMakeDiaryNote
 
 # start dmenu (a program launcher)
-bindsym $mod+r exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+r exec --no-startup-id dmenu
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -262,13 +262,13 @@ bindsym XF86AudioPrev exec "playerctl previous"
 bindsym $mod+Shift+x exec ~/scripts/lock
 bindsym $mod+w exec $browser
 # bindsym $mod+c exec california
-bindsym $mod+p exec google-chrome --app=http://68.99.84.118:32400/web/
+bindsym $mod+p exec google-chrome --app=http://68.99.84.23:32400/web/
 bindsym $mod+c exec google-chrome --class=i3calendar --app=http://google.com/calendar 
 bindsym $mod+m exec google-chrome --class=i3mail --app=http://inbox.google.com
 # bindsym $mod+p exec --no-startup-id xterm -bg \#002b36 -e 'export TERM=xterm-256color && vis'
 bindsym $mod+d exec $term --title=rangerterminaltitleclass -x ranger
 
-bindsym $mod+ctrl+1 exec google-chrome http://www.yancomm.net/teaching/binary_analysis.html
+bindsym $mod+ctrl+1 exec google-chrome 'https://myasucourses.asu.edu/webapps/blackboard/execute/launcher?type=Course&id=_375625_1&url='
 bindsym $mod+ctrl+2 exec google-chrome 'https://myasucourses.asu.edu/webapps/blackboard/execute/launcher?type=Course&id=_373624_1'
 
 gaps inner 10

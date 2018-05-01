@@ -1,212 +1,150 @@
-let g:tex_flavor="latex"
-nnoremap <silent> <C-l> :nohl<CR><C-l>
-set backupdir=~/.vim_bak//
-set directory=~/.vim_tmp//
-" let g:ctrlp_show_hidden=1
-
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+" General VIM Configuration
+setlocal conceallevel=0
+set conceallevel=0
+set rnu
+set nu
+set incsearch
+set breakindent
+set autochdir
 let mapleader="\<Space>"
-set nocompatible
-" filetype off
-call plug#begin('~/.vim/plugged')
+map <leader>s :source /home/techknowfile/.vimrc<CR>
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set encoding=utf-8
+set lazyredraw
+set ttyfast
 
-" Add plugins here
-" Plug 'vim-scripts/indentpython.vim'
-Plug 'scrooloose/nerdtree'
-function! BuildYCM(info)
-    if a;info.status == 'installed' || a:info.force
-        !./install.sh
-    endif
-endfunction
-Plug 'Reewr/vim-monokai-phoenix'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
-Plug 'sjbach/lusty'
-Plug 'sickill/vim-monokai'
-Plug 'bfredl/nvim-ipy'
-Plug 'ivanov/vim-ipython'
-Plug 'tomasr/molokai'
-Plug 'mboughaba/i3config.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'Valloric/YouCompleteMe'
-Plug 'davidhalter/jedi-vim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'altercation/vim-colors-solarized'
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-ragtag'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'hdima/python-syntax'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-fugitive'
-Plug 'mileszs/ack.vim'
-Plug 'kien/ctrlp.vim'
-Plug 'voronianski/oceanic-next-color-scheme'
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'xuhdev/vim-latex-live-preview'
-Plug 'vim-latex/vim-latex'
-Plug 'vimwiki/vimwiki'
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-line'
-Plug 'bps/vim-textobj-python'
+" Install/Run Plugins
+call plug#begin('~/.vim/tmpplugged')
+    Plug 'vim-latex/vim-latex'
+    Plug 'ayu-theme/ayu-vim'
+    Plug 'Yggdroot/indentLine'
+    Plug 'PontusPersson/pddl.vim'
+    " Plug 'kien/ctrlp.vim'
+    Plug 'xuhdev/vim-latex-live-preview'
+    Plug 'MarcWeber/vim-addon-mw-utils'
+    Plug 'ervandew/supertab'
+    function! BuildYCM(info)
+        if a;info.status == 'installed' || a:info.force
+            !./install.sh
+        endif
+    endfunction
+    Plug 'Valloric/YouCompleteMe'
+    Plug 'junegunn/goyo.vim'
+    Plug 'junegunn/limelight.vim'
+    Plug 'davidhalter/jedi-vim'
+    Plug 'w0rp/ale'
+    Plug 'vim-scripts/ReplaceWithRegister'
+    Plug 'tpope/vim-ragtag'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
+    Plug 'hdima/python-syntax'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-fugitive'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+    Plug 'morhetz/gruvbox'
+    Plug 'vimwiki/vimwiki'
+    Plug 'bfredl/nvim-ipy'
 
-Plug 'vim-scripts/LustyJuggler'
-Plug 'morhetz/gruvbox'
-Plug 'tweekmonster/braceless.vim'
-Plug 'PontusPersson/pddl.vim'
-Plug 'wellle/targets.vim'
-Plug 'michaeljsmith/vim-indent-object'
-" end plugins
+    Plug 'kana/vim-textobj-user'
+    Plug 'kana/vim-textobj-line'
+    Plug 'kana/vim-textobj-entire'
+    Plug 'bps/vim-textobj-python'
+    Plug 'rbonvall/vim-textobj-latex'
+
+    Plug 'fogine/vim-i3wm-tmux-navigator'
 call plug#end()
 
-"YCM
-""Django
+" Shortcuts
+inoremap jk <esc>
+tnoremap jk <C-\><C-n>
+vnoremap jk <esc>
+vnoremap kj <esc>
+tnoremap kj <C-\><C-n>
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-g>g :Ag<CR>
+nnoremap <C-g>c :Commands<CR>
+nnoremap <C-f>l :BLines<CR>
+nnoremap <C-p> :Files<CR>
+
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<CR>
+
+" Buffer Configuration
+set hidden
+
+
+
+" LaTeX Settings
+let g:tex_flavor='latex'
+set updatetime=1000
+let g:livepreview_previewer = 'zathura'
+:onoremap <silent> i$ :<c-u>normal! T$vt$<cr>
+:vnoremap i$ T$ot$
+let g:Tex_DefaultTargetFormat='pdf'
+au BufNewFile,BufRead *.tex
+    \ filetype indent on |
+    \ filetype plugin on |
+    \ let g:tex_flavor="latex" 
+" SyncTex support
+function! Synctex()
+        " remove 'silent' for debugging
+        execute "silent !zathura --synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . " " . g:syncpdf
+endfunction
+map <C-enter> :call Synctex()<cr>
+
+
+"Python
+" autocmd FileType python BracelessEnable +indent
+
+" Python REPL
+map <silent> <C-s> <Plug>(IPy-Run)
+let g:nvim_ipy_perform_mappings = 1
+" map <leader>p :IronRepl<CR>jkG:resize 10<CR>:set nonu<CR>:set nornu<CR><C-w><C-w>
+nnoremap <leader>p :IPython<CR><C-w><C-w>:resize 10<CR>:set nonu<CR>:set nornu<CR>:set winfixheight<CR><C-w><C-w>
+function! Ipython_prompt()
+    let user_cmd = input('')
+    call IPyRun(user_cmd)
+endfunction
+nmap <leader>f :call Ipython_prompt()<CR>
+
+" YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
-"Italics
-set t_ZH=[3m
-set t_ZR=[23m
-let &t_ZH="\e[3m"
-let &t_ZR="\e[23m"
-"Vim-airline
-let g:airline_theme='gruvbox'
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#left_sep=''
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_skip_empty_sections=1
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-"set layout
-set t_8f=[38;2;%lu;%lu;%lum
-set t_8b=[48;2;%lu;%lu;%lum
+
+" Color Scheme
+" set t_8f=[38;2;%lu;%lu;%lum
+" set t_8b=[48;2;%lu;%lu;%lum
 let g:gruvbox_contrast_dark = "hard"
 let g:gruvbox_italic = 1
 let g:monokai_term_italic = 1
 let g:monokai_term_bold = 1
 let g:solarized_termcolors = 256
 set background=dark
+let ayucolor="dark"
 colorscheme gruvbox
-set incsearch
-set path+=**
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set encoding=utf-8
-" filetype indent on
-filetype plugin indent on
-set cursorline
-nnoremap <leader>h :set hls!<CR>
-set wildmenu
-syntax enable
-map <leader>s :source ~/.vimrc<CR>
-map <leader>n :NERDTreeToggle<CR>
-:inoremap jk <esc>
-:vnoremap jk <esc>
-:vnoremap kj <esc>
-set breakindent
-" set noautoindent
-set laststatus=2
-set noshowmode
-set expandtab
-" this enables "visual" wrapping
-set wrap
-autocmd FileType python BracelessEnable +indent
-" this turns off physical line wrapping (ie: automatic insertion of newlines)
-set textwidth=0 wrapmargin=0
-let g:Tex_DefaultTargetFormat='pdf'
-au BufNewFile,BufRead *.tex
-    \ filetype indent on |
-    \ filetype plugin on |
-    \ let g:tex_flavor="latex" 
-au BufWritePost *.tex silent call Tex_RunLaTeX()
-au BufWritePost *.tex silent !pkill -USR1 xdvi.bin
-
-
-function! SetXeTex()
-    let g:Tex_CompileRule_pdf = 'xelatex -aux-directory=F:/Vim/my_latex_doc/temp --synctex=-1 -src-specials -interaction=nonstopmode $*'
-endfunction
-map <Leader>lx :<C-U>call SetXeTex()<CR>
-let g:Tex_IgnoredWarnings = 
-    \"Font shape"."\n".
-    \"LaTeX Font Warning"."\n".
-    \"Underfull"."\n".
-    \"Size substitutions"."\n"
-let g:Tex_IgnoreLevel = 4
-
-" augroup filetypedetect
-
-"     au BufNewFile,BufRead *.world
-"         \set filetype=xml  
-
-" augroup END
-au BufNewFile,BufRead *.launch,*.world 
-    \set filetype=xml  
-
-au BufNewFile,BufRead *.py
-    \ set tabstop=4        |
-    \ set softtabstop=4    |
-    \ set shiftwidth=4     |
-    \ set expandtab        |
-    \ set autoindent      |
-    \ set fileformat=unix  
-
-au BufNewFile,BufRead *.js, *.html, *.css, *.jsp
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-
-set relativenumber
-set number
-
-no <down> <Nop>
-no <up> <Nop>
-no <left> <Nop>
-no <right> <Nop>
-
-ino <down> <Nop>
-ino <up> <Nop>
-ino <left> <Nop>
-ino <right> <Nop>
-
-let g:ragtag_global_maps=1
-"vim-airline settings
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-" Shortcut keys
-nnoremap <F5> "=strftime("%a %b %d, %Y")<CR>P
-inoremap <F5> <C-R>=strftime("%a %b %d, %Y")<CR>
-
-"allow switching of buffers without save
-:set hidden
-
-"VimWiki settings
-let g:vimwiki_list_ignore_newline = 0
-map <F2> :mksession! ~/vim_session <cr> " Quick write session with F2
-map <F3> :source ~/vim_session <cr>     " And load session with F3
-let g:vimwiki_list = [{'path': '~/vimwiki', 'template_path': '~/vimwiki/templates/',
-          \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
-          \ 'path_html': '~/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
-          \ 'template_ext': '.tpl'}]
-
-let g:AutoPairsMapCR = 0
-let g:AutoPairsShortcutJump = "<C-n>"
-let g:monokai_term_italic = 1
-let g:monokai_gui_italic = 1
-let g:AutoPairsNormalJump = 0
-
+let g:indentLine_char = ''
+let g:indentLine_first_char = ''
+let g:indentLine_showFirstIndentLevel = 0
+let g:indentLine_setColors = 1
