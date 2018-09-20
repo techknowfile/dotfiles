@@ -1,6 +1,7 @@
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 alias ls="ls --color=auto -F"
 export PATH="/usr/local/anaconda3/bin:/home/techknowfile/.vim/plugged/vim-live-latex-preview/bin:$PATH"
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/.dotfiles --work-tree=$HOME'
 export TERMCMD="x-terminal-emulator"
 export EDITOR=vim
 set encoding=utf-8
@@ -173,7 +174,6 @@ export KEYTIMEOUT=5
 autoload -U colors
 colors
 export MALMO_XSD_PATH=/usr/local/malmo/Schemas
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias minecraft='/usr/local/malmo/Minecraft/launchClient.sh'
 alias missions='cd ~/projects/malmo/missions'
 ## Fix keybindings

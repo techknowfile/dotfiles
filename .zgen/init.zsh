@@ -5,8 +5,6 @@
 ZSH=/home/techknowfile/.zgen/robbyrussell/oh-my-zsh-master
 
 # ### General modules
-source "/home/techknowfile/.zgen/zsh-users/zsh-history-substring-search-master/zsh-history-substring-search.plugin.zsh"
-source "/home/techknowfile/.zgen/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.plugin.zsh"
 source "/home/techknowfile/.zgen/bhilburn/powerlevel9k-master/powerlevel9k.zsh-theme"
 
 # ### Plugins & Completions
