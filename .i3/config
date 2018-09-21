@@ -143,16 +143,16 @@ bindsym $mod+space focus mode_toggle
 # focus the child container
 #bindsym $mod+d focus child
 
-set $ws1 "1: i"
-set $ws2 "2: ii"
-set $ws3 "3: iii"
-set $ws4 "4: iv"
-set $ws5 "5: v"
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
 set $ws6 "6: vi"
 set $ws7 "7: vii"
 set $ws8 "8: viii"
-set $ws9 "9: ix"
-set $ws10 "Secondary"
+set $ws9 "9: "
+set $ws10 ""
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -229,7 +229,7 @@ bar {
     status_command i3blocks
     #i3bar_command i3bar -t
     position top
-    font pango:Hack, FontAwesome 14
+    font pango: Overpass Nerd Font Mono Regular 14
     strip_workspace_numbers yes
     separator_symbol "■"
     bindsym button4 nop
@@ -282,11 +282,13 @@ bindsym XF86AudioPrev exec "playerctl previous"
 bindsym $mod+Shift+x exec ~/scripts/lock
 bindsym $mod+w exec $browser
 # bindsym $mod+c exec california
-bindsym $mod+p exec google-chrome --app=http://68.99.84.23:32400/web/
+bindsym $mod+p exec google-chrome --app=http://68.110.76.34:22400/web/
 bindsym $mod+c exec google-chrome --class=i3calendar --app=http://google.com/calendar 
 bindsym $mod+m exec google-chrome --class=i3mail --app=http://inbox.google.com
+bindsym $mod+Shift+m exec google-chrome --app=http://messenger.com
 # bindsym $mod+p exec --no-startup-id xterm -bg \#002b36 -e 'export TERM=xterm-256color && vis'
 bindsym $mod+d exec $term --title=rangerterminaltitleclass -x ranger
+bindsym --release Print exec shutter -s
 
 bindsym $mod+ctrl+1 exec google-chrome 'https://myasucourses.asu.edu/webapps/blackboard/execute/launcher?type=Course&id=_375625_1&url='
 bindsym $mod+ctrl+2 exec google-chrome 'https://myasucourses.asu.edu/webapps/blackboard/execute/launcher?type=Course&id=_373624_1'
@@ -321,6 +323,3 @@ bindsym $mod+Shift+y		exec --no-startup-id "bash ~/scripts/i3resize left"
 bindsym $mod+Shift+u		exec --no-startup-id "bash ~/scripts/i3resize down"
 bindsym $mod+Shift+i		exec --no-startup-id "bash ~/scripts/i3resize up"
 bindsym $mod+Shift+o		exec --no-startup-id "bash ~/scripts/i3resize right"
-
-# printscreen
-bindsym --release Print exec "shutter -s"

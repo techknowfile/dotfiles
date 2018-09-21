@@ -64,7 +64,7 @@ call plug#begin('~/.vim/tmpplugged')
     Plug 'bps/vim-textobj-python'
     Plug 'rbonvall/vim-textobj-latex'
 
-    Plug 'fogine/vim-i3wm-tmux-navigator'
+    Plug 'PotatoesMaster/i3-vim-syntax'
 call plug#end()
 
 " Shortcuts

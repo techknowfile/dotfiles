@@ -1,3 +1,16 @@
+##########################
+##  Shortcuts
+##########################
+
+alias cfi='vim ~/.i3/config'
+alias cfz='vim ~/.zshrc'
+alias p='cd ~/projects; ls -a'
+alias D='cd ~/Downloads; ls -a'
+alias d='cd ~/Documents; ls -a'
+alias P='cd ~/Pictures; ls -a'
+alias r='ranger'
+
+
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 alias ls="ls --color=auto -F"
 export PATH="/usr/local/anaconda3/bin:/home/techknowfile/.vim/plugged/vim-live-latex-preview/bin:$PATH"
