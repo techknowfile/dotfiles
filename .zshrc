@@ -1,7 +1,11 @@
+# fh - repeat history
+fh() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
 ##########################
 ##  Shortcuts
 ##########################
-
+ 
 alias cfi='vim ~/.i3/config'
 alias cfz='vim ~/.zshrc'
 alias p='cd ~/projects; ls -a'
@@ -13,7 +17,7 @@ alias r='ranger'
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 alias ls="ls --color=auto -F"
-export PATH="/usr/local/anaconda3/bin:/home/techknowfile/.vim/plugged/vim-live-latex-preview/bin:$PATH"
+export PATH="/usr/local/anaconda3/bin:/home/techknowfile/.vim/plugged/vim-live-latex-preview/bin:/home/techknowfile/spark/bin:$PATH"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/.dotfiles --work-tree=$HOME'
 export TERMCMD="x-terminal-emulator"
 export EDITOR=vim
@@ -214,3 +218,4 @@ function fzf-cd {
 }
 zle -N fzf-cd
 bindkey ^f fzf-cd
+. /home/techknowfile/anaconda3/etc/profile.d/conda.sh

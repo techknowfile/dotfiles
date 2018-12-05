@@ -5,6 +5,11 @@ border_left=0
 border_right=0
 border_bottom=4
 
+[plex]
+command=~/scripts/plex_details.py
+interval=5
+border=#d65d0e
+
 [updates]
 command=$HOME/scripts/updates.sh
 interval=60
@@ -57,3 +62,4 @@ interval=1
 markup=pango
 border=#928374
 separator_block_width=0
+min_width=280

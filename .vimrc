@@ -63,9 +63,13 @@ call plug#begin('~/.vim/tmpplugged')
     Plug 'kana/vim-textobj-entire'
     Plug 'bps/vim-textobj-python'
     Plug 'rbonvall/vim-textobj-latex'
-
+	Plug 'parkr/vim-jekyll'
     Plug 'PotatoesMaster/i3-vim-syntax'
+	Plug 'https://github.com/Alok/notational-fzf-vim'
 call plug#end()
+
+" notational fzf
+let g:nv_search_paths = ['~/notes', './notes.md']
 
 " Shortcuts
 inoremap jk <esc>
@@ -90,6 +94,9 @@ nnoremap <silent> <C-\> :TmuxNavigatePrevious<CR>
 " Buffer Configuration
 set hidden
 
+au BufNewFile,BufRead *.md
+	\ set textwidth=72 | 
+	\ set formatoptions+=t
 
 
 " LaTeX Settings
@@ -144,7 +151,7 @@ let g:solarized_termcolors = 256
 set background=dark
 let ayucolor="dark"
 colorscheme gruvbox
-let g:indentLine_char = ''
-let g:indentLine_first_char = ''
-let g:indentLine_showFirstIndentLevel = 0
-let g:indentLine_setColors = 1
+" let g:indentLine_char = ''
+" let g:indentLine_first_char = ''
+" let g:indentLine_showFirstIndentLevel = 0
+" let g:indentLine_setColors = 1
