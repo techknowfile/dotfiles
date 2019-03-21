@@ -12,7 +12,11 @@ if exists('+termguicolors')
   let &t_8f = "[38;2;%lu;%lu;%lum"
   let &t_8b = "[48;2;%lu;%lu;%lum"
 endif
+set t_ZH=[3m
+set t_ZR=[23m
 set termguicolors
+set t_ZH=[3m
+set t_ZR=[23m
 
 setlocal conceallevel=0
 set conceallevel=0
@@ -33,6 +37,7 @@ set ttyfast
 " Install/Run Plugins
 call plug#begin('~/.vim/tmpplugged')
     Plug 'edkolev/tmuxline.vim'
+    Plug 'sheerun/vim-polyglot'
     Plug 'arcticicestudio/nord-vim'
     Plug 'joshdick/onedark.vim'
     Plug 'christoomey/vim-tmux-navigator'
@@ -155,16 +160,18 @@ let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
 
 " Color Scheme
-" set t_8f=[38;2;%lu;%lu;%lum
-" set t_8b=[48;2;%lu;%lu;%lum
-" let g:gruvbox_contrast_dark = "hard"
-" let g:gruvbox_italic = 1
+set t_8f=[38;2;%lu;%lu;%lum
+set t_8b=[48;2;%lu;%lu;%lum
+let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_italic = 1
 " let g:monokai_term_italic = 1
 " let g:monokai_term_bold = 1
 " let g:solarized_termcolors = 256
 " highlight Normal ctermbg=black ctermfg=white
 " set background=dark
 " let ayucolor="dark"
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
 colorscheme nord
 " let g:indentLine_char = ''
 " let g:indentLine_first_char = ''
@@ -214,3 +221,4 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let g:airline_theme='nord'
+syntax match pythonFunction /\v([^[:cntrl:][:space:][:punct:][:digit:]]|_)([^[:cntrl:][:punct:][:space:]]|_)*\ze(\s?\()/
