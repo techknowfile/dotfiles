@@ -1,11 +1,19 @@
-set termguicolors
+" set termguicolors
+if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 if &term =~# '^screen'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
-" General VIM Configuration
+if exists('+termguicolors')
+  let &t_8f = "[38;2;%lu;%lu;%lum"
+  let &t_8b = "[48;2;%lu;%lu;%lum"
+endif
+set termguicolors
+
 setlocal conceallevel=0
 set conceallevel=0
 set rnu
@@ -24,6 +32,11 @@ set ttyfast
 
 " Install/Run Plugins
 call plug#begin('~/.vim/tmpplugged')
+    Plug 'edkolev/tmuxline.vim'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'joshdick/onedark.vim'
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'vim-scripts/LustyJuggler'
     Plug 'vim-latex/vim-latex'
     Plug 'ayu-theme/ayu-vim'
     Plug 'Yggdroot/indentLine'
@@ -56,7 +69,7 @@ call plug#begin('~/.vim/tmpplugged')
     Plug 'junegunn/fzf.vim'
     Plug 'morhetz/gruvbox'
     Plug 'vimwiki/vimwiki'
-    Plug 'bfredl/nvim-ipy'
+    " Plug 'bfredl/nvim-ipy'
 
     Plug 'kana/vim-textobj-user'
     Plug 'kana/vim-textobj-line'
@@ -77,11 +90,12 @@ tnoremap jk <C-\><C-n>
 vnoremap jk <esc>
 vnoremap kj <esc>
 tnoremap kj <C-\><C-n>
+
+nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <C-b> :Buffers<CR>
 nnoremap <C-g>g :Ag<CR>
 nnoremap <C-g>c :Commands<CR>
 nnoremap <C-f>l :BLines<CR>
-nnoremap <C-p> :Files<CR>
 
 let g:tmux_navigator_no_mappings = 1
 
@@ -143,15 +157,60 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 " Color Scheme
 " set t_8f=[38;2;%lu;%lu;%lum
 " set t_8b=[48;2;%lu;%lu;%lum
-let g:gruvbox_contrast_dark = "hard"
-let g:gruvbox_italic = 1
-let g:monokai_term_italic = 1
-let g:monokai_term_bold = 1
-let g:solarized_termcolors = 256
-set background=dark
-let ayucolor="dark"
-colorscheme gruvbox
+" let g:gruvbox_contrast_dark = "hard"
+" let g:gruvbox_italic = 1
+" let g:monokai_term_italic = 1
+" let g:monokai_term_bold = 1
+" let g:solarized_termcolors = 256
+" highlight Normal ctermbg=black ctermfg=white
+" set background=dark
+" let ayucolor="dark"
+colorscheme nord
 " let g:indentLine_char = ''
 " let g:indentLine_first_char = ''
 " let g:indentLine_showFirstIndentLevel = 0
 " let g:indentLine_setColors = 1
+if &filetype != 'tex'
+	"imap IMAP_JumpForward
+	"nmap IMAP_JumpForward
+	"vmap IMAP_JumpForward
+	"vmap IMAP_DeleteAndJumpForward
+	imap #$ IMAP_JumpForward
+	nmap #$ IMAP_JumpForward
+	vmap #$ IMAP_JumpForward
+	vmap #$ IMAP_DeleteAndJumpForward
+endif
+
+nnoremap <F5> :exe "!tmux send -t 2 'clear;python " . expand("%:p") . "' Enter"<CR><C-L>
+nnoremap <F6> :exe "!tmux send-keys -t 2 C-c"<CR>"
+
+" air-line
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_theme='nord'

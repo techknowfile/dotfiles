@@ -1,3 +1,5 @@
+
+LC_ALL="en_US.UTF-8"
 # fh - repeat history
 fh() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
@@ -13,13 +15,14 @@ alias D='cd ~/Downloads; ls -a'
 alias d='cd ~/Documents; ls -a'
 alias P='cd ~/Pictures; ls -a'
 alias r='ranger'
+alias t='cd ~/projects/thesis'
 
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 alias ls="ls --color=auto -F"
 export PATH="/usr/local/anaconda3/bin:/home/techknowfile/.vim/plugged/vim-live-latex-preview/bin:/home/techknowfile/spark/bin:$PATH"
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/.dotfiles --work-tree=$HOME'
-export TERMCMD="x-terminal-emulator"
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+# export TERMCMD="x-terminal-emulator"
 export EDITOR=vim
 set encoding=utf-8
 DEFAULT_USER=techknowfile
@@ -68,6 +71,8 @@ EOPLUGINS
     # completions
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load bhilburn/powerlevel9k powerlevel9k
+	zgen load bckim92/zsh-autoswitch-conda
+	zgen load changyuheng/zsh-interactive-cd
 
     # save all to init script
     zgen save
@@ -92,7 +97,7 @@ DISABLE_AUTO_TITLE="true"
 #  # Tell Antigen that you're done.
 #  antigen apply
 
-source ~/opt/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+# source ~/opt/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 export levels="ssh 01aabaed9@129.219.253.30 -p 1337"
 eval `dircolors '/home/techknowfile/.dir_colors/dircolors'`
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
@@ -103,7 +108,8 @@ export PATH="/home/techknowfile/anaconda3/bin:$PATH"
 POWERLEVEL9K_PYTHON_ICON='\ue73c'
 #POWERLEVEL9K_MODE='awesome-patched'
 POWERLEVEL9K_ANACONDA_BACKGROUND='149'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time context dir rbenv vcs anaconda) 
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time context dir rbenv vcs anaconda) 
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time dir rbenv vcs anaconda) 
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=() 
 # POWERLEVEL9K_VI_INSERT_MODE_STRING="INSERT"
 # POWERLEVEL9K_VI_INSERT_MODE_BACKGROUND='green'
@@ -202,11 +208,11 @@ bindkey '\e[3~'   delete-char        # Linux console, xterm, gnome-terminal
 bindkey '\e[4~'   end-of-line        # Linux console
 bindkey '\e[F'    end-of-line        # xterm
 bindkey '\eOF'    end-of-line        # gnome-terminal]]]]]]'
-export LD_LIBRARY_PATH=/usr/local/lib
 export XDG_CURRENT_DESKTOP=GNOME
 
 unset PYTHONPATH
 export LD_LIBRARY_PATH=/opt/OpenBLAS/lib:/usr/local/lib
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 stty -ixon
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -218,4 +224,56 @@ function fzf-cd {
 }
 zle -N fzf-cd
 bindkey ^f fzf-cd
+
+# cf - fuzzy cd from anywhere
+# ex: cf word1 word2 ... (even part of a file name)
+# zsh autoload function
+cf() {
+  local file
+
+  file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
+
+  if [[ -n $file ]]
+  then
+     if [[ -d $file ]]
+     then
+        cd -- $file
+     else
+        cd -- ${file:h}
+     fi
+  fi
+}
+
+# cdf - cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+# cdg - cd into the root of current git directory
+cdg() {
+	cd $(git rev-parse --show-toplevel)
+}
+
+# tty console colors
+if [ "$TERM" = "linux" ]; then
+    echo -en "\e]P0232323" #black
+    echo -en "\e]P82B2B2B" #darkgrey
+    echo -en "\e]P1D75F5F" #darkred
+    echo -en "\e]P9E33636" #red
+    echo -en "\e]P287AF5F" #darkgreen
+    echo -en "\e]PA98E34D" #green
+    echo -en "\e]P3D7AF87" #brown
+    echo -en "\e]PBFFD75F" #yellow
+    echo -en "\e]P48787AF" #darkblue
+    echo -en "\e]PC7373C9" #blue
+    echo -en "\e]P5BD53A5" #darkmagenta
+    echo -en "\e]PDD633B2" #magenta
+    echo -en "\e]P65FAFAF" #darkcyan
+    echo -en "\e]PE44C9C9" #cyan
+    echo -en "\e]P7E5E5E5" #lightgrey
+    echo -en "\e]PFFFFFFF" #white
+    clear #for background artifacting
+fi
 . /home/techknowfile/anaconda3/etc/profile.d/conda.sh
