@@ -12,8 +12,8 @@ if exists('+termguicolors')
   let &t_8f = "[38;2;%lu;%lu;%lum"
   let &t_8b = "[48;2;%lu;%lu;%lum"
 endif
-set t_ZH=[3m
-set t_ZR=[23m
+let &t_ZH="[3m"
+let t_ZR="[23m"
 set termguicolors
 set t_ZH=[3m
 set t_ZR=[23m
@@ -36,6 +36,10 @@ set ttyfast
 
 " Install/Run Plugins
 call plug#begin('~/.vim/tmpplugged')
+    Plug 'SirVer/ultisnips'
+    Plug 'sickill/vim-monokai'
+    Plug 'ervandew/supertab'
+    Plug 'honza/vim-snippets'
     Plug 'edkolev/tmuxline.vim'
     Plug 'sheerun/vim-polyglot'
     Plug 'arcticicestudio/nord-vim'
@@ -168,11 +172,12 @@ let g:gruvbox_italic = 1
 " let g:monokai_term_bold = 1
 " let g:solarized_termcolors = 256
 " highlight Normal ctermbg=black ctermfg=white
-" set background=dark
+set background=dark
 " let ayucolor="dark"
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
-colorscheme nord
+" colorscheme nord
+colorscheme gruvbox
 " let g:indentLine_char = ''
 " let g:indentLine_first_char = ''
 " let g:indentLine_showFirstIndentLevel = 0
@@ -188,7 +193,9 @@ if &filetype != 'tex'
 	vmap #$ IMAP_DeleteAndJumpForward
 endif
 
-nnoremap <F5> :exe "!tmux send -t 2 'clear;python " . expand("%:p") . "' Enter"<CR><C-L>
+" nnoremap <F5> :exe "!tmux send -t 2 " . if len(system('git rev-parse')) readfile(".main")
+nnoremap <expr> <F5> (len(system('git rev-parse')) ? ':exe "!tmux send -t 2 \"python " . expand("%:p") . "\" Enter"<CR><C-L>' : ':exe "!tmux send -t 2 \"python " . readfile(".main")[0] . "\" Enter"<CR><C-L>')
+" nnoremap <F5> :exe "!tmux send -t 2 'clear;python " . expand("%:p") . "' Enter"<CR><C-L>
 nnoremap <F6> :exe "!tmux send-keys -t 2 C-c"<CR>"
 
 " air-line
@@ -222,3 +229,13 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let g:airline_theme='nord'
 syntax match pythonFunction /\v([^[:cntrl:][:space:][:punct:][:digit:]]|_)([^[:cntrl:][:punct:][:space:]]|_)*\ze(\s?\()/
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
