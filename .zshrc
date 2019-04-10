@@ -50,35 +50,37 @@ setopt shwordsplit
 
 
 # ZGEN
-# source "${HOME}/.zgen/zgen.zsh"
-if ! zgen saved; then
-    echo "Creating a zgen save"
+if [ -e "${HOME}/.zgen/zgen.zsh" ] then
+	source "${HOME}/.zgen/zgen.zsh"
+	if ! zgen saved; then
+		echo "Creating a zgen save"
 
-    zgen oh-my-zsh
-    
-    # plugins
-    zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/heroku
-    zgen oh-my-zsh plugins/pip
-    zgen oh-my-zsh plugins/lein
-    zgen oh-my-zsh plugins/command-not-found
-    
-    # bulk load
-    zgen loadall << EOPLUGINS 
-        zsh-users/zsh-history-substring-search
+		zgen oh-my-zsh
+		
+		# plugins
+		zgen oh-my-zsh plugins/git
+		zgen oh-my-zsh plugins/heroku
+		zgen oh-my-zsh plugins/pip
+		zgen oh-my-zsh plugins/lein
+		zgen oh-my-zsh plugins/command-not-found
+		
+		# bulk load
+		zgen loadall <<EOPLUGINS
+			zsh-users/zsh-history-substring-search
 EOPLUGINS
 
-    # completions
-    zgen load zsh-users/zsh-syntax-highlighting
-    zgen load bhilburn/powerlevel9k powerlevel9k
-	if [ -e ${HOME}/anaconda3/etc/profile.d/conda.sh ]
-	then
-		zgen load bckim92/zsh-autoswitch-conda
-	fi
-	zgen load changyuheng/zsh-interactive-cd
+		# completions
+		zgen load zsh-users/zsh-syntax-highlighting
+		zgen load bhilburn/powerlevel9k powerlevel9k
+		if [ -e ${HOME}/anaconda3/etc/profile.d/conda.sh ]
+		then
+			zgen load bckim92/zsh-autoswitch-conda
+		fi
+		zgen load changyuheng/zsh-interactive-cd
 
-    # save all to init script
-    zgen save
+		# save all to init script
+		zgen save
+	fi
 fi
 DISABLE_AUTO_TITLE="true"
 # Load the oh-my-zsh's library
