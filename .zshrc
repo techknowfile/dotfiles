@@ -51,6 +51,7 @@ setopt shwordsplit
 
 
 # ZGEN
+source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
     echo "Creating a zgen save"
 
@@ -211,7 +212,7 @@ bindkey '\eOF'    end-of-line        # gnome-terminal]]]]]]'
 export XDG_CURRENT_DESKTOP=GNOME
 
 unset PYTHONPATH
-export LD_LIBRARY_PATH=/opt/OpenBLAS/lib:/usr/local/lib
+export LD_LIBRARY_PATH=/opt/OpenBLAS/lib:/usr/local/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 stty -ixon
 
@@ -277,3 +278,6 @@ if [ "$TERM" = "linux" ]; then
     clear #for background artifacting
 fi
 . /home/techknowfile/anaconda3/etc/profile.d/conda.sh
+
+# fix ruby error for LustyJuggler
+export RUBYOPT="-W0"
