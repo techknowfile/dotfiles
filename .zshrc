@@ -103,7 +103,7 @@ DISABLE_AUTO_TITLE="true"
 
 # source ~/opt/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 export levels="ssh 01aabaed9@129.219.253.30 -p 1337"
-eval `dircolors '/home/techknowfile/.dir_colors/dircolors'`
+eval `dircolors '${HOME}/.dir_colors/dircolors'`
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 autoload -Uz compinit
 compinit
@@ -280,7 +280,9 @@ if [ "$TERM" = "linux" ]; then
     echo -en "\e]PFFFFFFF" #white
     clear #for background artifacting
 fi
-. /home/techknowfile/anaconda3/etc/profile.d/conda.sh
+if [ -f ${HOME}/anaconda3/etc/profile.d/conda.sh ] then
+	. ${HOME}/anaconda3/etc/profile.d/conda.sh
+fi
 
 # fix ruby error for LustyJuggler
 export RUBYOPT="-W0"
