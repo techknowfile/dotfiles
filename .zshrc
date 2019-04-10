@@ -1,4 +1,3 @@
-
 LC_ALL="en_US.UTF-8"
 # fh - repeat history
 fh() {
@@ -51,7 +50,7 @@ setopt shwordsplit
 
 
 # ZGEN
-source "${HOME}/.zgen/zgen.zsh"
+# source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
     echo "Creating a zgen save"
 
@@ -72,7 +71,10 @@ EOPLUGINS
     # completions
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load bhilburn/powerlevel9k powerlevel9k
-	zgen load bckim92/zsh-autoswitch-conda
+	if [ -e ${HOME}/anaconda3/etc/profile.d/conda.sh ]
+	then
+		zgen load bckim92/zsh-autoswitch-conda
+	fi
 	zgen load changyuheng/zsh-interactive-cd
 
     # save all to init script
