@@ -85,6 +85,7 @@ bindsym $mod+Shift+n exec $term -x vim -c VimwikiMakeDiaryNote
 
 # start dmenu (a program launcher)
 bindsym $mod+r exec  rofi -show run -display-run ">>> "
+bindsym $mod+Shift+r exec  rofi -show ssh
 
 # toggle audio output device
 bindsym $mod+z exec ~/scripts/audio-device-switch.sh
@@ -237,7 +238,7 @@ bar {
     bindsym button4 nop
     bindsym button5 nop
     tray_padding 0
-    height 35
+    height 60
     colors {
         statusline         $white
         background         $transparent
