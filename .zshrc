@@ -79,6 +79,8 @@ EOPLUGINS
 		# save all to init script
 		zgen save
 	fi
+else
+	git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 fi
 
 DISABLE_AUTO_TITLE="true"
