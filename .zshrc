@@ -14,7 +14,8 @@ alias D='cd ~/Downloads; ls -a'
 alias d='cd ~/Documents; ls -a'
 alias P='cd ~/Pictures; ls -a'
 alias r='ranger'
-alias t='cd ~/projects/thesis'
+alias t='cd ~/projects/thesis; ls -a'
+alias www='cd ~/www/techknowfile.github.io; ls -a'
 
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
