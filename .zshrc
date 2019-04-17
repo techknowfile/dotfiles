@@ -117,10 +117,10 @@ POWERLEVEL9K_PYTHON_ICON='\ue73c'
 POWERLEVEL9K_ANACONDA_BACKGROUND='149'
 # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time context dir rbenv vcs anaconda) 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time dir rbenv vcs anaconda) 
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=() 
-# POWERLEVEL9K_VI_INSERT_MODE_STRING="INSERT"
-# POWERLEVEL9K_VI_INSERT_MODE_BACKGROUND='green'
-# POWERLEVEL9K_VI_COMMAND_MODE_STRING="NORMAL"
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vi_mode) 
+POWERLEVEL9K_VI_INSERT_MODE_STRING=""
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='blue'
+POWERLEVEL9K_VI_COMMAND_MODE_STRING="<<<"
 POWERLEVEL9K_ANACONDA_FOREGROUND='016'
 POWERLEVEL9K_ANACONDA_LEFT_DELIMITER=''
 POWERLEVEL9K_ANACONDA_RIGHT_DELIMITER=''
@@ -135,68 +135,16 @@ if [ -n "$CONDA_DEFAULT_ENV" ]; then
     echo "source activate $CONDA_DEFAULT_ENV"
 fi
 
-# function zle-keymap-select zle-line-init
-# {
-#          change cursor shape in iTerm2
-#              case $KEYMAP in
-#                      vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
-#                              viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
-#                                  esac
-        
-#                                      zle reset-prompt
-#                                          zle -R
-        
-# }
-
-# function zle-line-finish
-# {
-#         print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
-
-# }
-
-# zle -N zle-line-init
-# zle -N zle-line-finish
-# zle -N zle-keymap-select
-# precmd() { RPROMPT=""  }
+# precmd() { RPROMPT="" }
 # function zle-line-init zle-keymap-select {
-#    VIM_PROMPT="%F{red}[COMMAND]%  %{$reset_color%}"
-#       RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-#          zle reset-prompt
-
+#    # VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+# 	POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=("%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}") 
+#    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+#    zle reset-prompt
 # }
 
-# zle -N zle-line-init
-# zle -N zle-keymap-select
-# function zle-line-init {
-#       powerlevel9k_prepare_prompts
-#         if (( ${+terminfo[smkx]}  )); then
-#                 printf '%s' ${terminfo[smkx]}
-#                   fi
-#                     zle reset-prompt
-#                       zle -R
-
-# }
-
-# function zle-line-finish {
-#       powerlevel9k_prepare_prompts
-#         if (( ${+terminfo[rmkx]}  )); then
-#                 printf '%s' ${terminfo[rmkx]}
-#                   fi
-#                     zle reset-prompt
-#                       zle -R
-
-# }
-
-# function zle-keymap-select {
-#       powerlevel9k_prepare_prompts
-#         zle reset-prompt
-#           zle -R
-
-# }
-
-# zle -N zle-line-init
-# zle -N ale-line-finish
-# zle -N zle-keymap-select
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 bindkey jk vi-cmd-mode 
 bindkey kj vi-cmd-mode 
