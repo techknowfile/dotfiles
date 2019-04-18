@@ -1,4 +1,4 @@
-exec_always --no-startup-id compton -b 
+exec_always --no-startup-id env LD_LIBRARY_PATH=$HOME/anaconda3/lib compton -b
 exec_always --no-startup-id ~/.screenlayout/default.sh
 exec_always --no-startup-id ~/.fehbg
 
@@ -169,16 +169,16 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
-workspace $ws10 output DP-1
-workspace $ws1 output DP-6
-workspace $ws2 output DP-6
-workspace $ws3 output DP-6
-workspace $ws4 output DP-6
-workspace $ws5 output DP-6
-workspace $ws6 output DP-6
-workspace $ws7 output DP-6
-workspace $ws8 output DP-6
-workspace $ws9 output DP-6
+workspace $ws10 output HDMI-1-1
+workspace $ws1 output eDP-1-1
+workspace $ws2 output eDP-1-1
+workspace $ws3 output eDP-1-1
+workspace $ws4 output eDP-1-1
+workspace $ws5 output eDP-1-1
+workspace $ws6 output eDP-1-1
+workspace $ws7 output eDP-1-1
+workspace $ws8 output eDP-1-1
+workspace $ws9 output eDP-1-1
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -267,8 +267,8 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
 bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 20"
-bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 20"
+bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 20"
+bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 20"
 
 # Touchpad controls
 # bindsym XF86TouchpadToggle exec "/some/path/oggletouchpad.sh" # toggle touchpad
