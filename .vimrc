@@ -36,6 +36,8 @@ set ttyfast
 
 " Install/Run Plugins
 call plug#begin('~/.vim/tmpplugged')
+    Plug 'pangloss/vim-javascript'
+    Plug 'mxw/vim-jsx'
     Plug 'SirVer/ultisnips'
     Plug 'sickill/vim-monokai'
     Plug 'ervandew/supertab'
@@ -139,6 +141,11 @@ function! Synctex()
         execute "silent !zathura --synctex-forward " . line('.') . ":" . col('.') . ":" . bufname('%') . " " . g:syncpdf
 endfunction
 map <C-enter> :call Synctex()<cr>
+let g:Tex_BibtexFlavor = 'biber'
+let g:Tex_DefaultTargetFormat="pdf"
+" The following is relevant to make LaTeX rerun after biber if necessary: 
+" " (include all formats for which re-running is to be enabled)
+" let g:Tex_MultipleCompileFormats='pdf,dvi'
 
 
 "Python
